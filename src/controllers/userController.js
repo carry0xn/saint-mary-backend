@@ -43,42 +43,45 @@ const login = async (req, res, UserModel) => {
   }
 }
 
-const register = async (req, res, UserModel) => {
-  const { nombreCompleto, username, password, cursoId } = req.body
+const register = async (req, res, UserModel, rol) => {
+  const { nombreCompleto, username, password, cursoId } = req.body;
 
   try {
     if (!nombreCompleto || !username || !password) {
-      return res.status(400).json({ message: "Faltan campos obligatorios" })
+      return res.status(400).json({ message: "Faltan campos obligatorios" });
     }
 
-    const existingUser = await UserModel.findOne({ where: { username } })
+    const existingUser = await UserModel.findOne({ where: { username } });
     if (existingUser) {
-      return res.status(409).json({ message: "El usuario ya existe" })
+      return res.status(409).json({ message: "El usuario ya existe" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10)
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUserData = {
       nombreCompleto,
       username,
       password: hashedPassword,
-    }
+      rol, // este se lo pasás como argumento
+    };
 
     if ("cursoId" in UserModel.rawAttributes) {
-      newUserData.cursoId = cursoId
+      newUserData.cursoId = cursoId;
     }
 
-    const user = await UserModel.create(newUserData)
+    const user = await UserModel.create(newUserData);
 
     res.status(201).json({
       id: user.id,
       nombreCompleto: user.nombreCompleto,
       username: user.username,
-    })
+      rol: user.rol,
+    });
   } catch (error) {
-    res.status(500).json({ message: "Error al registrar usuario", error: error.message })
+    res.status(500).json({ message: "Error al registrar usuario", error: error.message });
   }
 }
+
 
 const modificarUser = async (req, res, UserModel) => {
   try {

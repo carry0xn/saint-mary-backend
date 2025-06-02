@@ -18,7 +18,7 @@ const mostrarAlumnos = async (req, res) => {
 }
 const mostrarAlumno = (req, res) => userController.mostrarUser(req, res, Alumno)
 const loginAlumnos = (req, res) => userController.login(req, res, Alumno)
-const registerAlumnos = (req, res) => userController.register(req, res, Alumno)
+const registerAlumnos = (req, res) => userController.register(req, res, Alumno, "alumno")
 const modificarAlumnos = (req, res) => userController.modificarUser(req, res, Alumno)
 const actualizarAlumnos = (req, res) => userController.actualizarUser(req, res, Alumno)
 const eliminarAlumnos = (req, res) => userController.eliminarUser(req, res, Alumno)

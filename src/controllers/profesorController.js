@@ -12,9 +12,9 @@ const mostrarProfesores = async (req, res) => {
     res.status(500).json({ message: 'Error al obtener los profesores', error: error.message })
   }
 }
-const mostrarProfesor = (req, res) => userController.mostrarUser(req, res, Alumno)
+const mostrarProfesor = (req, res) => userController.mostrarUser(req, res, Profesor)
 const loginProfesor = (req, res) => userController.login(req, res, Profesor)
-const registerProfesor = (req, res) => userController.register(req, res, Profesor)
+const registerProfesor = (req, res) => userController.register(req, res, Profesor, "profesor")
 const modificarProfesor = (req, res) => userController.modificarUser(req, res, Profesor)
 const actualizarProfesor = (req, res) => userController.actualizarUser(req, res, Profesor)
 const eliminarProfesor = (req, res) => userController.eliminarUser(req, res, Profesor)
